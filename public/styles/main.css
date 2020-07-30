@@ -1,0 +1,232 @@
+ html,
+ body {
+   font-family: 'Roboto', 'Helvetica', sans-serif;
+   background-color: #e0e0e0;
+   margin:0;
+ }
+
+ 
+ #container{
+	 width:100vw;
+	 height:100vh;
+	 display: grid;
+	 grid-template-rows: 120px calc( 100vh - 170px ) 50px;
+	 grid-template-areas:
+		"header"
+		"main"
+		"footer";
+ }
+ 
+ 
+ header{
+	 grid-area: header;
+	 width:100%;
+	 background-color: #d1a50c;
+	 border-bottom-style:solid;
+	 border-color:black;
+	 display: grid;
+	 grid-template-rows: 60px 50px;
+	 grid-template-areas: "title"
+						  "filter";
+ }
+ .main{
+	 grid-area: main;
+	 width:1024px;
+	 max-width:100vw;
+	 height:95%;
+	 margin:auto;
+	 display:grid;
+	 grid-template-columns: auto;
+	 grid-gap:5px;
+	 grid-template-areas:
+		"results";
+ }  
+ .footer{
+	 grid-area:footer;
+	 background-color: #d1a50c;
+	 border-top-style:solid;
+	 display:grid;
+	 grid-template-columns: 1fr 1fr 1fr;
+ }
+ @media only screen and (max-width: 950px) {
+ .main{
+	 grid-area: main;
+	 width: auto;
+	 height:100%;
+	 margin:auto;
+	 display:grid;
+	 grid-template-columns: 100%;
+	 grid-template-rows: calc( 98% );
+	 grid-gap:5px;
+	 grid-template-areas: 
+		"results";
+ }  
+ }
+ 
+ #title-card{
+	 width:1024px;
+	 max-width:95vw;
+	 margin:auto;
+	 grid-area:title;
+ }
+ #title{
+	 text-align:left;
+	 font-size:25pt;
+ }
+ #filter-display{
+	 width:1024px;
+	 max-width:95vw;
+	 height:90%;
+	 margin:auto;
+	 grid-area:filter;
+	 display: grid;
+	 background-color: #FFF;
+	 border-style:solid;
+	 border-width:2px;
+	 border-radius:20px;
+	 border-color: #d7d7d7;
+	 display:grid;
+	 grid-template-columns: 35px auto;
+	 grid-gap:5px;
+ }
+ #filter-icon{
+	 padding-top:10px;
+	 padding-left:20px;
+ }
+ #filter-description{
+	 padding-top:10px;
+	 padding-left:20px;
+	 text-align:left;
+	 font-size:15pt;
+	 color:#616469;
+	 overflow-x:auto;
+	 overflow-y:hidden;
+     white-space: nowrap;
+ }
+ 
+ .mdc-dialog__surface{
+	 margin:10px;
+ }
+ #dialog-title{
+	 text-align:center;
+ }
+ #dialog-form{
+	 text-align:center;
+	 margin:10px;
+	 line-height:35pt;
+ }
+ .preference{
+	 font-size:15pt;
+	 margin-left:auto;
+	 margin-right:auto;
+ }
+ .mdc-dialog__actions{
+	 display:grid;
+	 grid-template-columns: 1fr 1fr 1fr;
+ }
+ #cancel-button{ grid-column:1; }
+ #filter-button{ grid-column:3; }
+ 
+ #results{
+	 grid-area:results;
+	 max-height:100%;
+	 overflow-y:auto;
+	 display:grid;
+	 grid-template-columns: 1fr 1fr 1fr;
+	 grid-template-rows: auto;
+	 grid-gap:5px;
+ }
+ @media only screen and (max-width: 800px) {
+ #results{
+  	 grid-template-columns: 1fr 1fr;
+ }
+ }
+ @media only screen and (max-width: 550px) {
+ #results{
+  	 grid-template-columns: 1fr;
+ }
+ }
+ 
+ 
+ #route-card{
+	 height: 100px;
+	 width: 98%;
+	 background-color:#FFF;
+	 border-radius:5px;
+	 border-style:solid;
+	 border-width:2px;
+	 border-color:#d7d7d7;
+	 font-size:14pt;
+	 line-height:18pt;
+	 overflow-x:auto;
+	 overflow-y:hidden;
+     white-space:nowrap;
+	 
+ }
+ #vanilla-card{
+	 height: 60px;
+	 width: 98%;
+	 background-color:#FFF;
+	 border-radius:5px;
+	 border-style:solid;
+	 border-width:2px;
+	 border-color:#d7d7d7;
+	 font-size:14pt;
+	 line-height:18pt;
+	 overflow-x:auto;
+	 overflow-y:hidden;
+     white-space:nowrap;
+	 
+ }
+ #final-message{
+	 text-align:center;
+	 font-size:14pt;
+ }
+
+  @media only screen and (max-width: 950px) {
+  #route-card{
+	 height: 90px;
+ 	 font-size:12pt;
+ 	 line-height:16pt;
+  }
+  #vanilla-card{
+	 height: 50px;
+ 	 font-size:12pt;
+ 	 line-height:16pt;
+  }
+
+  }
+ 
+ #footer-dialog-title{
+	 text-align:center;
+ }
+ #footer-dialog-content{
+	 margin: 0px 40px 40px 40px;
+	 text-align:center;
+ }
+ #close-button{ grid-column:2; }
+ 
+ 
+ .footer-content{
+	 text-decoration:underline;
+	 font-size:15pt;
+	 padding-top:8px;
+ }
+ #about{
+	grid-column:1;
+	text-align:left;
+	padding-left:25px;
+ }
+ #contact{
+	grid-column:2;
+	text-align:center;
+ }
+ #conditions{
+	grid-column:3;
+	text-align:right;
+	padding-right:25px;
+ }
+ 
+ @media only screen and (max-width: 950px) {
+ .footer-content{ font-size:12pt; }
+ }

@@ -1,0 +1,260 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141693529-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-141693529-1');
+  </script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wegweiser - Swiss day-hike planner</title>
+  <meta name="description" content="Wegweiser is a web application that recommends one-day hikes in Switzerland based on weather conditions, and your preferences of travel time, route type, and route duration.">
+  <!-- Disable tap highlight on IE -->
+  <meta name="msapplication-tap-highlight" content="no">
+  <link rel="icon" href="images/favicon.png">
+
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Wegweiser">
+  <meta name="theme-color" content="#d1a50c">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Wegweiser">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#d1a50c">
+
+  <!-- Tile icon for Win8 -->
+  <!-- <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F"> -->
+
+  <!-- Material Design Components -->
+  <link rel="stylesheet"
+  href="https://unpkg.com/material-components-web@0.39.3/dist/material-components-web.min.css">
+  <script src="https://unpkg.com/material-components-web@0.39.3/dist/material-components-web.js"></script>
+
+  <!-- App Styling -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+<div id="container">
+  <header>
+    <div id="title-card">
+	  <div id="title">Wegweiser</div>
+	</div>
+	 
+	<div id="filter-display">
+	  <i id="filter-icon" class="material-icons">filter_list</i>
+	  <span id="filter-description">Click here to filter.</span>
+	</div>
+	
+	<div class="mdc-dialog"	id="filter-dialog">
+	  <div class="mdc-dialog__container">
+		<div class="mdc-dialog__surface">
+		  <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
+		  <h4 class="mdc-dialog__title" id="dialog-title"><!--
+		 -->Preferences<!--
+	   --></h4>
+		  <div class="mdc-dialog__content" id="dialog-form">
+		    <div>
+			Show
+			<select class='preference' id="Type"> 
+				<option value="Hiking">hiking</option>
+				<option value="Mountain">mountain</option>
+			</select>
+			routes
+			</div>
+			<div>
+			lasting 
+			<select class='preference' id="Duration"> 
+				<option value = 'less than 3'>less than 3</option>
+				<option value = '3 to 6'>3 to 6</option>
+				<option value = 'more than 6'>more than 6</option>
+			</select>
+			hours
+			</div>
+			<div>
+			within
+			<select class='preference' id="MaxTravelTime"> 
+				<option value = 0.5>0.5</option>
+				<option value = 1>1</option>
+				<option value = 1.5>1.5</option>
+				<option value = 2>2</option>
+				<option value = 2.5>2.5</option>
+				<option value = 3>3</option>
+				<option value = 3.5>3.5</option>
+				<option value = 4>4</option>	
+			</select>
+			hours of
+			<select class='preference' id="Home"> 
+				<option value = "Zurich">Zurich</option>
+				<option value = "Geneva">Geneva</option>
+				<option value = "Basel">Basel</option>
+				<option value = "Lausanne">Lausanne</option>
+				<option value = "Bern">Bern</option>
+				<option value = "Luzern">Luzern</option>
+				<option value = "St_Gallen">St. Gallen</option>
+				<option value = "Lugano">Lugano</option>
+				<option value = "Chur">Chur</option>
+				<option value = "Brig">Brig</option>
+				<option value = "Sion">Sion</option>
+			</select>
+			</div>
+			<div>
+			Weather forecast: 
+			<select class='preference' id="HikeDate"></select>
+			</div>
+		  </div>
+		  <div class="mdc-dialog__actions">
+		  	<button type="button" class="mdc-button mdc-dialog__button" id="cancel-button">
+			  <span class="mdc-button__label">Cancel</span>
+			</button>
+			<button type="button" class="mdc-button mdc-dialog__button" id="filter-button">
+			  <span class="mdc-button__label">Filter</span>
+			</button>
+		  </div>
+		</div>
+	  </div>
+	  <div class="mdc-dialog__scrim"></div>
+	</div>
+  </header>
+
+  <div class="main">
+	<div id="results"></div>
+  </div>
+  
+  <div class="footer">
+  <div class="footer-content" id="about">About</div>
+  <div class="footer-content" id="contact">Contact</div>
+  <div class="footer-content" id="conditions">Conditions</div>
+  <div class="mdc-dialog" id="footer-dialog">
+  	  <div class="mdc-dialog__container">
+		<div class="mdc-dialog__surface">
+		  <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
+		  <h4 class="mdc-dialog__title" id="footer-dialog-title"><!--
+		 --><!--
+	   --></h4>
+	   
+		  <div class="mdc-dialog__content" id="footer-dialog-content"></div>
+		  <div class="mdc-dialog__actions">
+		  	<button type="button" class="mdc-button mdc-dialog__button" id="close-button">
+			  <span class="mdc-button__label">Close</span>
+			</button>
+		  </div>
+		</div>
+	  </div>
+	  <div class="mdc-dialog__scrim"></div>
+  </div>
+  </div>
+  
+  
+  <div hidden class="template" id="vanilla-card">
+    <a data-fir-link="url">
+	<div id="route-name">
+		<b data-fir-content="start"></b>
+		<b> -- </b>
+		<b data-fir-content="end"></b>
+		|
+		<span data-fir-content="duration/hours"></span>
+	    <span>h</span>
+	    <span data-fir-content="duration/minutes"></span>
+	    <span>m</span>
+	</div>
+	</a>
+	<div id="route-details">
+	  <div>
+		<span data-fir-content="start_weather/status"></span>
+		<span>, </span>
+		<span data-fir-content="start_weather/temperature"></span>
+		<span>C</span>
+	  </div>
+	  <div hidden id="coords">
+		<span data-fir-content="coords/E" id="coordE"></span>
+		<span data-fir-content="coords/N" id="coordN"></span>
+	  </div>
+	</div>
+	
+  </div>
+   
+  <div hidden class="template" id="route-card">
+	<a data-fir-link="url">
+	<div id="route-name">
+		<b data-fir-content="start"></b>
+		<b> -- </b>
+		<b data-fir-content="end"></b>
+		|
+		<span data-fir-content="duration/hours"></span>
+	    <span>h</span>
+	    <span data-fir-content="duration/minutes"></span>
+	    <span>m</span>
+	</div>
+	</a>
+	<div id="route-details">
+
+
+	  <div>
+		<span data-fir-content="start_weather/status"></span>
+		<span>, </span>
+		<span data-fir-content="start_weather/temperature"></span>
+		<span>C</span>
+	  </div>
+	 
+	  <div>  
+		<span>Home to </span>
+		<span data-fir-content="start"></span>
+		<span>: </span>
+		<span data-fir-content="time_to_start/hours"></span>
+		<span>h</span>
+		<span data-fir-content="time_to_start/minutes"></span>
+		<span>m</span>
+	  </div>
+	  	  
+	  <div>   
+		<span data-fir-content="end"></span>
+		<span> to home: </span>
+		<span data-fir-content="time_from_end/hours"></span>
+		<span>h</span>
+		<span data-fir-content="time_from_end/minutes"></span>
+		<span>m</span>
+	  </div>
+	  <div hidden id="coords">
+		<span data-fir-content="coords/E" id="coordE"></span>
+		<span data-fir-content="coords/N" id="coordN"></span>
+	  </div>
+	</div>
+	
+  </div>
+  
+  <div hidden class="template" id="final-message">
+	<b id="message"></b>
+  </div>
+  
+</div>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="/__/firebase/6.0.2/firebase-app.js"></script>
+
+<script src="/__/firebase/6.0.2/firebase-auth.js"></script>
+<script src="/__/firebase/6.0.2/firebase-firestore.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#reserved-urls -->
+
+<!-- Initialize Firebase -->
+<script src="/__/firebase/init.js"></script>
+
+<script src="/scripts/Wegweiser.js"></script>
+<script src="/scripts/Wegweiser.View.js"></script>
+</body>
+</html>

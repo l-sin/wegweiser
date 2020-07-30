@@ -1,0 +1,3 @@
+route search return wrong place for some nodes, e.g. Engstlenalp, St. Anton
+
+as it stands, get weather is very lossy for schweizmobil routes, with many returning null results
