@@ -90,50 +90,53 @@ class Edge:
         
         return output
 
-with open('config.txt', 'r') as infile:
-    config = json.load(infile)
+#print(__name__)
+    
+if __name__=='__main__':
+    with open('config.txt', 'r') as infile:
+        config = json.load(infile)
 
-weather_update = config["weather_update"]
+    weather_update = config["weather_update"]
 
-region_names = config["region_names"]
-hubs = config["hubs"]
+    region_names = config["region_names"]
+    hubs = config["hubs"]
 
-cred = credentials.Certificate(config["firebase_cred"])
-try:
-    firebase_admin.initialize_app(cred)
-except ValueError:
-    pass
+    cred = credentials.Certificate(config["firebase_cred"])
+    try:
+        firebase_admin.initialize_app(cred)
+    except ValueError:
+        pass
 
-routes={'Hiking':{},'Mountain':{},'Alpine':{}}
-badcount = 0
-for fname in region_names:
+    routes={'Hiking':{},'Mountain':{},'Alpine':{}}
+    badcount = 0
+    for fname in region_names:
 
-    # route-related information
-    with open('../data/{}_raw_edges.txt'.format(fname), 'r') as infile:
-        edges = json.load(infile)
+        # route-related information
+        with open('../data/{}_raw_edges.txt'.format(fname), 'r') as infile:
+            edges = json.load(infile)
 
-    with open('../data/{}_weather_{}.txt'.format(fname,weather_update), 'r') as infile:
-        weather = json.load(infile)
+        with open('../data/{}_weather_{}.txt'.format(fname,weather_update), 'r') as infile:
+            weather = json.load(infile)
 
-    with open('../data/{}_with_travel.txt'.format(fname), 'r') as infile:
-        journies = json.load(infile)
-        
-    with open('../data/{}_coords.txt'.format(fname), 'r') as infile:
-        coords = json.load(infile)
+        with open('../data/{}_with_travel.txt'.format(fname), 'r') as infile:
+            journies = json.load(infile)
 
-    for name,edge in edges.items():
-        edge = Edge(edge)
-        if edge.is_clean():
-            routes[edge.type_][name] = edge.db_format()
+        with open('../data/{}_coords.txt'.format(fname), 'r') as infile:
+            coords = json.load(infile)
 
-duration_filters = {
-    'less than 3': lambda kv: kv[1]['duration']<3,
-    '3 to 6': lambda kv: 3<=kv[1]['duration']<6,
-    'more than 6':lambda kv: 6<=kv[1]['duration']
-}
+        for name,edge in edges.items():
+            edge = Edge(edge)
+            if edge.is_clean():
+                routes[edge.type_][name] = edge.db_format()
 
-db = firestore.client()
-for route_type,route_subset in routes.items():
-    for duration, duration_filter in duration_filters.items():
-        subset = {kv[0]:kv[1] for kv in filter(duration_filter, routes[route_type].items())}
-        db.collection('beta_'+route_type).document(duration).set(subset)
+    duration_filters = {
+        'less than 3': lambda kv: kv[1]['duration']<3,
+        '3 to 6': lambda kv: 3<=kv[1]['duration']<6,
+        'more than 6':lambda kv: 6<=kv[1]['duration']
+    }
+
+    db = firestore.client()
+    for route_type,route_subset in routes.items():
+        for duration, duration_filter in duration_filters.items():
+            subset = {kv[0]:kv[1] for kv in filter(duration_filter, routes[route_type].items())}
+            db.collection('beta_'+route_type).document(duration).set(subset)

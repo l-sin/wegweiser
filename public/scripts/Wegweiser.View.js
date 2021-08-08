@@ -116,6 +116,12 @@ Wegweiser.prototype.initFooter = function() {
 	  document.querySelector("#footer-dialog-content").innerHTML = that.data['about'];
 	  dialog.show();
   } );
+  var blog = document.querySelector('#blog');
+  about.addEventListener("click", function() {
+	  document.querySelector("#footer-dialog-title").innerHTML = 'About';
+	  document.querySelector("#footer-dialog-content").innerHTML = that.data['about'];
+	  dialog.show();
+  } );
   var contact = document.querySelector('#contact');
   contact.addEventListener("click", function() {
 	  document.querySelector("#footer-dialog-title").innerHTML = 'Contact';

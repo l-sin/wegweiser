@@ -1,12 +1,19 @@
 /beta/data/*
+/env/
+/bin/
+/update procedure
 outdated/
 *.json
 *.pyc
 *.ipynb
 __pycache__/
 config.txt
+heroku_pg_config
 config_proto.py
 .ipynb_checkpoints/
+/db/
+/wegweiser_site/
+.idea
 
 # Logs
 logs

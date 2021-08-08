@@ -1,7 +1,7 @@
 def update():
     import update_travel
     import update_weather
-    import upload_routes
+    #import upload_routes
     
 try:
     update()

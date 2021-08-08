@@ -27,7 +27,7 @@
 	 display: grid;
 	 grid-template-rows: 60px 50px;
 	 grid-template-areas: "title"
-						  "filter";
+						  "subtitle";
  }
  .main{
 	 grid-area: main;
@@ -72,33 +72,25 @@
  #title{
 	 text-align:left;
 	 font-size:25pt;
+	 text-decoration: none !important;
  }
- #filter-display{
+ #subtitle-card{
 	 width:1024px;
 	 max-width:95vw;
 	 height:90%;
 	 margin:auto;
-	 grid-area:filter;
+	 grid-area:subtitle;
 	 display: grid;
-	 background-color: #FFF;
-	 border-style:solid;
-	 border-width:2px;
-	 border-radius:20px;
 	 border-color: #d7d7d7;
 	 display:grid;
-	 grid-template-columns: 35px auto;
+	 grid-template-columns: 150px auto;
 	 grid-gap:5px;
  }
- #filter-icon{
-	 padding-top:10px;
-	 padding-left:20px;
- }
- #filter-description{
+ #subtitle{
 	 padding-top:10px;
 	 padding-left:20px;
 	 text-align:left;
 	 font-size:15pt;
-	 color:#616469;
 	 overflow-x:auto;
 	 overflow-y:hidden;
      white-space: nowrap;
@@ -132,23 +124,13 @@
 	 max-height:100%;
 	 overflow-y:auto;
 	 display:grid;
-	 grid-template-columns: 1fr 1fr 1fr;
+	 grid-template-columns: 1fr;
 	 grid-template-rows: auto;
 	 grid-gap:5px;
  }
- @media only screen and (max-width: 800px) {
- #results{
-  	 grid-template-columns: 1fr 1fr;
- }
- }
- @media only screen and (max-width: 550px) {
- #results{
-  	 grid-template-columns: 1fr;
- }
- }
  
  
- #route-card{
+ #blog-card{
 	 height: 100px;
 	 width: 98%;
 	 background-color:#FFF;
@@ -162,25 +144,6 @@
 	 overflow-y:hidden;
      white-space:nowrap;
 	 
- }
- #vanilla-card{
-	 height: 60px;
-	 width: 98%;
-	 background-color:#FFF;
-	 border-radius:5px;
-	 border-style:solid;
-	 border-width:2px;
-	 border-color:#d7d7d7;
-	 font-size:14pt;
-	 line-height:18pt;
-	 overflow-x:auto;
-	 overflow-y:hidden;
-     white-space:nowrap;
-	 
- }
- #final-message{
-	 text-align:center;
-	 font-size:14pt;
  }
 
   @media only screen and (max-width: 950px) {

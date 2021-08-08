@@ -1,44 +1,34 @@
 'use strict';
 
-function Wegweiser() {
-  var preferences = {start_hub:"Zurich",
-					 type:"Mountain"};
+function Blog() {
 
   var that = this;
-  
+
   firebase.firestore().enablePersistence()
     .then(function() {
       return firebase.auth().signInAnonymously();
     })
     .then(function() {
-	  
 	  that.initTemplates();
-	  that.initDialog();
 	  that.initFooter();
-	  that.showVanilla();
     }).catch(function(err) {
       console.log(err);
     });
+
 }
 
 
-Wegweiser.prototype.getFirebaseConfig = function() {
+Blog.prototype.getFirebaseConfig = function() {
   return firebase.app().options;
 };
 
 
 window.onload = function() {
-  window.app = new Wegweiser();
+  window.app = new Blog();
 };
 
 
-Wegweiser.prototype.data = {
-	'defaults':{
-				'Home':'Zurich',
-				'Type':'Hiking',
-				'MaxTravelTime':2.5,
-				'Duration':'3 to 6'
-				},
+Blog.prototype.data = {
 	'about': 'Wegweiser is a web application that recommends one-day hikes in Switzerland'+
 			 ' based on weather conditions, and your preferences of travel time,'+
 			 ' route type, and route duration.',
